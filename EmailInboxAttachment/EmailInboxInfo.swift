@@ -47,10 +47,41 @@ class EmailInboxInfo: UITableViewCell {
         return label
     }()
     
+    lazy var backArrowImage: UIImageView = {
+           let imageView = UIImageView()
+           imageView.image = UIImage(named: "back_arrow_icon")
+           imageView.layer.cornerRadius = 10
+           imageView.contentMode = .scaleAspectFill
+           //imageView.backgroundColor = .darkGray
+           imageView.clipsToBounds = true
+           imageView.translatesAutoresizingMaskIntoConstraints = false
+           return imageView
+       }()
+    lazy var nextArrowImage: UIImageView = {
+            let imageView = UIImageView()
+            imageView.image = UIImage(named: "arrow_next_right_icon")
+            //imageView.layer.cornerRadius = 25
+            imageView.contentMode = .scaleAspectFill
+            //imageView.backgroundColor = .darkGray
+            imageView.clipsToBounds = true
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            return imageView
+        }()
+    lazy var attachmentClipImage: UIImageView = {
+            let imageView = UIImageView()
+            imageView.image = UIImage(named: "attachment_paperclip_icon")
+            //imageView.layer.cornerRadius = 25
+            imageView.contentMode = .scaleAspectFill
+            //imageView.backgroundColor = .darkGray
+            imageView.clipsToBounds = true
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            return imageView
+        }()
+        
+    
     // StackViews
     lazy var titleTimeStampStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel,
-                                                       timestampLabel])
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, timestampLabel])
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 10.0
@@ -75,6 +106,10 @@ class EmailInboxInfo: UITableViewCell {
         super.init(style: UITableViewCell.CellStyle.default, reuseIdentifier: reuseIdentifier)
         
         addSubview(subHeadingDetailStackView)
+        addSubview(backArrowImage)
+        addSubview(nextArrowImage)
+        addSubview(attachmentClipImage)
+        
         subHeadingDetailStackView.leftAnchor.constraint(equalTo: leftAnchor,
                                                 constant: 20).isActive = true
         subHeadingDetailStackView.rightAnchor.constraint(equalTo: rightAnchor,
@@ -84,11 +119,26 @@ class EmailInboxInfo: UITableViewCell {
         titleTimeStampStackView.leftAnchor.constraint(equalTo: leftAnchor,
                                                       constant: 20).isActive = true
         titleTimeStampStackView.rightAnchor.constraint(equalTo: rightAnchor,
-                                                       constant: -20).isActive = true
+                                                       constant: -30).isActive = true
         
         // Add a width for the timestamp
         timestampLabel.widthAnchor.constraint(equalToConstant: 50).isActive = true
         
+        backArrowImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        backArrowImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        backArrowImage.leftAnchor.constraint(equalTo:titleTimeStampStackView.leftAnchor, constant: -20).isActive = true
+        backArrowImage.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: -20).isActive = true
+        
+        nextArrowImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        nextArrowImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        nextArrowImage.leftAnchor.constraint(equalTo:titleTimeStampStackView.rightAnchor, constant: 5).isActive = true
+        nextArrowImage.topAnchor.constraint(equalTo: titleTimeStampStackView.bottomAnchor, constant: -20).isActive = true
+        
+        attachmentClipImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        attachmentClipImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        attachmentClipImage.leftAnchor.constraint(equalTo:titleTimeStampStackView.rightAnchor, constant: 5).isActive = true
+        attachmentClipImage.topAnchor.constraint(equalTo: nextArrowImage.bottomAnchor, constant: 5).isActive = true
+
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
